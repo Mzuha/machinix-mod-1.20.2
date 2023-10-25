@@ -1,14 +1,31 @@
 package com.mzuha
 
+import com.mzuha.block.MachinixBlocks
+import com.mzuha.effect.ModStatusEffects
+import com.mzuha.entity.ModBlockEntities
+import com.mzuha.group.MachinixModGroup
+import com.mzuha.item.MachinixItems
+import com.mzuha.screen.ModScreenHandlers
 import net.fabricmc.api.ModInitializer
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 const val MOD_ID = "machinix"
 
-class Machinix : ModInitializer {
-    private val logger = LoggerFactory.getLogger(MOD_ID)
+object Machinix : ModInitializer {
 
-	override fun onInitialize() {
-		logger.info("Hello Fabric world!")
-	}
+    val logger: Logger = LoggerFactory.getLogger(MOD_ID)
+
+    override fun onInitialize() {
+        MachinixItems.registerModItems()
+        MachinixBlocks.registerModBlocks()
+
+        MachinixModGroup.registerModGroup()
+
+        ModStatusEffects.registerStatusEffect()
+
+        ModBlockEntities.registerModBlockEntities()
+
+        ModScreenHandlers.registerModScreens()
+    }
 }

@@ -1,0 +1,8 @@
+{
+  "item.machinix.uranium": "Uranium",
+  "block.machinix.crusher": "Crusher",
+  "block.machinix.uranium_ore": "Uranium ore",
+  "effect.machinix.radiation": "Radiation",
+  "entity.machinix.crusher_entity": "Crusher",
+  "itemGroup.machinix": "Machinix"
+}

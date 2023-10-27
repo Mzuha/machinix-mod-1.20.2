@@ -32,6 +32,12 @@
         "value": "com.mzuha.MachinixDataGenerator",
         "adapter": "kotlin"
       }
+    ],
+    "rei_client": [
+      {
+        "value": "com.mzuha.compat.MachinixREIClient",
+        "adapter": "kotlin"
+      }
     ]
   },
   "mixins": [

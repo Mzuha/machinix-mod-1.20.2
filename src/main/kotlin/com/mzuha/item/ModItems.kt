@@ -9,7 +9,7 @@ import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
 
-object MachinixItems {
+object ModItems {
 
     val URANIUM: Item = registerItem(
         "uranium",

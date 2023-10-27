@@ -2,7 +2,7 @@ package com.mzuha.entity
 
 import com.mzuha.MOD_ID
 import com.mzuha.Machinix
-import com.mzuha.block.MachinixBlocks
+import com.mzuha.block.ModBlocks
 import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.registry.Registries
@@ -15,7 +15,7 @@ object ModBlockEntities {
         Identifier(MOD_ID, "crusher_entity"),
         FabricBlockEntityTypeBuilder.create(
             ::CrusherEntity,
-            MachinixBlocks.CRUSHER
+            ModBlocks.CRUSHER
         ).build()
     )
 

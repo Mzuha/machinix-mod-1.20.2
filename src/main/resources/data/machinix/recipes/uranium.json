@@ -1,0 +1,12 @@
+{
+  "type": "machinix:crushing",
+  "ingredients": [
+    {
+      "item": "machinix:uranium_ore"
+    }
+  ],
+  "output": {
+    "item": "machinix:uranium",
+    "count": 2
+  }
+}

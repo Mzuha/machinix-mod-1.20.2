@@ -12,7 +12,7 @@ import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
 
-object MachinixBlocks {
+object ModBlocks {
     val CRUSHER: Block = registerBlock(
         "crusher",
         Crusher(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK))

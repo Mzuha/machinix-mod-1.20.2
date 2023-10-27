@@ -1,17 +1,19 @@
 package com.mzuha.entity
 
-import com.mzuha.block.MachinixBlocks
-import com.mzuha.item.MachinixItems
+import com.mzuha.recipe.CrusherRecipe
 import com.mzuha.screen.CrusherScreenHandler
+import java.util.Optional
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory
 import net.minecraft.block.BlockState
 import net.minecraft.block.entity.BlockEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.entity.player.PlayerInventory
 import net.minecraft.inventory.Inventories
+import net.minecraft.inventory.SimpleInventory
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.network.PacketByteBuf
+import net.minecraft.recipe.RecipeEntry
 import net.minecraft.screen.PropertyDelegate
 import net.minecraft.screen.ScreenHandler
 import net.minecraft.server.network.ServerPlayerEntity
@@ -20,8 +22,8 @@ import net.minecraft.util.collection.DefaultedList
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.World
 
-private const val INPUT_SLOT = 0
-private const val OUTPUT_SLOT = 1
+const val CRUSHER_INPUT_SLOT = 0
+const val CRUSHER_OUTPUT_SLOT = 1
 
 class CrusherEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEntities.CRUSHER_ENTITY, pos, state),
     ExtendedScreenHandlerFactory, ImplementedInventory {
@@ -105,8 +107,15 @@ class CrusherEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEnti
     }
 
     private fun craftItem() {
-        this.removeStack(INPUT_SLOT, 1)
-        this.setStack(OUTPUT_SLOT, ItemStack(MachinixItems.URANIUM, getStack(OUTPUT_SLOT).count + 2))
+        val recipe = getCurrentRecipe().get()
+        this.removeStack(CRUSHER_INPUT_SLOT, 1)
+        this.setStack(
+            CRUSHER_OUTPUT_SLOT,
+            ItemStack(
+                recipe.value.getResult(null).item,
+                getStack(CRUSHER_OUTPUT_SLOT).count + recipe.value.getResult(null).count
+            )
+        )
     }
 
     private fun hasRecipeFinished(): Boolean {
@@ -117,17 +126,21 @@ class CrusherEntity(pos: BlockPos, state: BlockState) : BlockEntity(ModBlockEnti
         progress++
     }
 
-    private fun hasRecipe(): Boolean {
-        val inputStack = this.getStack(INPUT_SLOT)
-        val outputStack = this.getStack(OUTPUT_SLOT)
-        return inputStack.item == MachinixBlocks.URANIUM_ORE.asItem()
-            && (outputStack.item == MachinixItems.URANIUM || outputStack.isEmpty)
+    private fun hasRecipe(): Boolean = getCurrentRecipe().isPresent
+
+    private fun getCurrentRecipe(): Optional<RecipeEntry<CrusherRecipe>> {
+        val inv = SimpleInventory(this.size())
+
+        for (i in 0 until this.size()) {
+            inv.setStack(i, this.getStack(i))
+        }
+
+        return world!!.recipeManager.getFirstMatch(CrusherRecipe.Type.INSTANCE, inv, world)
     }
 
     private fun isOutputSlotEmptyOrNotFull(): Boolean {
-        val stack = this.getStack(OUTPUT_SLOT)
+        val stack = this.getStack(CRUSHER_OUTPUT_SLOT)
         return stack.isEmpty
-            || stack.count < stack.maxCount
-            || stack.count + 2 <= stack.maxCount
+            || (stack.count < stack.maxCount && stack.count + 2 <= stack.maxCount)
     }
 }

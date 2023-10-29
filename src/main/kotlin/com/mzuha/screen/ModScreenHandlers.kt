@@ -19,7 +19,7 @@ object ModScreenHandlers {
         }
     )
 
-    fun registerModScreens() {
-        Machinix.logger.info("Registering mod scrrens for $MOD_ID!")
+    fun registerModScreenHandlers() {
+        Machinix.logger.info("Registering mod screens for $MOD_ID!")
     }
 }

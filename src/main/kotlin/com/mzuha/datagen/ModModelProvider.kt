@@ -11,7 +11,7 @@ import net.minecraft.data.client.Models
 class ModModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {
     override fun generateBlockStateModels(blockStateModelGenerator: BlockStateModelGenerator) {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.URANIUM_ORE)
-        blockStateModelGenerator.registerSimpleState(ModBlocks.CRUSHER)
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.CRUSHER)
     }
 
     override fun generateItemModels(itemModelGenerator: ItemModelGenerator) {

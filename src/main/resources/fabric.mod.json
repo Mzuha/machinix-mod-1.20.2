@@ -23,7 +23,7 @@
     ],
     "client": [
       {
-        "value": "com.mzuha.MachinixInitializer",
+        "value": "com.mzuha.MachinixClientInitializer",
         "adapter": "kotlin"
       }
     ],

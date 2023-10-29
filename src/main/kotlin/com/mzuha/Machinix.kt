@@ -5,6 +5,8 @@ import com.mzuha.effect.ModStatusEffects
 import com.mzuha.entity.ModBlockEntities
 import com.mzuha.group.ModItemGroup
 import com.mzuha.item.ModItems
+import com.mzuha.keybinding.ModKeybinding
+import com.mzuha.messages.ModMessages
 import com.mzuha.recipe.ModRecipes
 import com.mzuha.screen.ModScreenHandlers
 import net.fabricmc.api.ModInitializer
@@ -20,15 +22,12 @@ object Machinix : ModInitializer {
     override fun onInitialize() {
         ModItems.registerModItems()
         ModBlocks.registerModBlocks()
-
         ModItemGroup.registerModGroup()
-
         ModStatusEffects.registerStatusEffect()
-
         ModBlockEntities.registerModBlockEntities()
-
         ModRecipes.registerModRecipes()
-
-        ModScreenHandlers.registerModScreens()
+        ModScreenHandlers.registerModScreenHandlers()
+        ModKeybinding.registerKeybindings()
+        ModMessages.initializeC2SPackets()
     }
 }

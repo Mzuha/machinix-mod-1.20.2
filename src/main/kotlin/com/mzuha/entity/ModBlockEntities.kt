@@ -8,6 +8,7 @@ import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
+import team.reborn.energy.api.EnergyStorage
 
 object ModBlockEntities {
     val CRUSHER_ENTITY: BlockEntityType<CrusherEntity> = Registry.register(
@@ -20,6 +21,13 @@ object ModBlockEntities {
     )
 
     fun registerModBlockEntities() {
+        EnergyStorage.SIDED.registerForBlockEntity(
+            { crusherEntity: CrusherEntity, _ ->
+                crusherEntity.energyStorage
+            },
+            CRUSHER_ENTITY
+        )
+
         Machinix.logger.info("Registering mod block entities for $MOD_ID!")
     }
 }

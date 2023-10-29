@@ -18,6 +18,12 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 	maven { url "https://maven.shedaniel.me" }
+	maven {
+		url "https://cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+		}
+	}
 }
 
 loom {
@@ -60,6 +66,12 @@ dependencies {
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:13.0.671"
 	modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:13.0.671"
 
+	include modApi('teamreborn:energy:3.0.0') {
+		transitive = false
+	}
+
+	modImplementation  ("curse.maven:reborncore-237903:4786770")
+	modImplementation  ("curse.maven:techreborn-233564:4786771")
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 }
 

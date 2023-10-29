@@ -15,7 +15,7 @@ import net.minecraft.screen.slot.Slot
 class CrusherScreenHandler : ScreenHandler {
     private val inventory: Inventory
     private val propertyDelegate: PropertyDelegate
-    private val crusherEntity: CrusherEntity
+    val crusherEntity: CrusherEntity
 
     constructor(syncId: Int, playerInventory: PlayerInventory, buf: PacketByteBuf) : this(
         syncId,
@@ -28,12 +28,12 @@ class CrusherScreenHandler : ScreenHandler {
         syncId: Int,
         playerInventory: PlayerInventory,
         blockEntity: BlockEntity,
-        arrayPropertyDelegate: PropertyDelegate
+        propertyDelegate: PropertyDelegate
     ) : super(ModScreenHandlers.CRUSHER_SCREEN_HANDLER, syncId) {
         checkSize(blockEntity as Inventory, 2)
         this.inventory = blockEntity
         inventory.onOpen(playerInventory.player)
-        this.propertyDelegate = arrayPropertyDelegate
+        this.propertyDelegate = propertyDelegate
         this.crusherEntity = blockEntity as CrusherEntity
 
         addSlot(Slot(inventory, 0, 80, 11))
@@ -42,7 +42,7 @@ class CrusherScreenHandler : ScreenHandler {
         addPlayerInventory(playerInventory)
         addPlayerHotbar(playerInventory)
 
-        addProperties(arrayPropertyDelegate)
+        addProperties(propertyDelegate)
     }
 
     override fun quickMove(player: PlayerEntity, invSlot: Int): ItemStack {
